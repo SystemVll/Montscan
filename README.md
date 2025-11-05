@@ -1,11 +1,10 @@
-# 🖨️ Montscan
+<div align="center">
+  <img width="256" height="256" alt="image" src="https://github.com/user-attachments/assets/ced68675-3338-4e7e-b9a0-5a9fc887aeac" />
+</div>
 
-> **Automated scanner document processor with OCR, AI naming, and Nextcloud upload**
-
-[![Python 3.14+](https://img.shields.io/badge/python-3.14+-blue.svg)](https://www.python.org/downloads/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-
-Montscan is an intelligent document processing system that automatically receives scanned documents via FTP, performs OCR text extraction, generates descriptive filenames using AI, and uploads them to Nextcloud.
+<div align="center">
+  <p><b>Montscan</b>: Automated scanner document processor with OCR, AI naming, and Nextcloud upload! ✨</p>
+</div>
 
 ---
 
