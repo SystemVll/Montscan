@@ -1,0 +1,57 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+*.egg
+pip-log.txt
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+.virtualenv
+
+# IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.project
+.pydevproject
+
+# Environment variables
+.env
+
+# Scans directory (temporary files)
+scans/
+*.pdf
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+*.bak
+
+# Docker volumes
+ollama-data/
+
+# Python version
+.python-version
+
+# UV lock
+# Keep uv.lock for reproducibility
+# uv.lock
+
+# Test files
+test_*.pdf
+*.test
+

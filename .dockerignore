@@ -1,0 +1,47 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Git
+.git/
+.gitignore
+
+# Documentation
+*.md
+!README.md
+WINDOWS_SETUP.md
+
+# Environment files (will be mounted)
+.env
+!.env.example
+
+# Scans directory (will be mounted as volume)
+scans/
+
+# Lock files
+.python-version
+
+# OS
+.DS_Store
+Thumbs.db
+
