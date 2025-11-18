@@ -20,10 +20,15 @@ services:
       - NEXTCLOUD_USERNAME=your_username
       - NEXTCLOUD_PASSWORD=your_password
       - NEXTCLOUD_UPLOAD_PATH=/Documents/Scanned
-      -
-      - # Ollama Configuration
-      - OLLAMA_HOST=http://localhost:11434
+
+      # Ollama Configuration
+      - OLLAMA_HOST=http://ollama:11434
       - OLLAMA_MODEL=llama3.2
+
+      # Processing Manager Configuration
+      - PROCESSING_MAX_WORKERS=4
+      - PROCESSING_MAX_RETRIES=3
+      - PROCESSING_DB_PATH=./processed.db
     depends_on:
       - ollama
     networks:
