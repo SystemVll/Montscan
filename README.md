@@ -84,8 +84,8 @@
 |----------|-------------|---------|
 | `FTP_HOST` | FTP server host address | `0.0.0.0` |
 | `FTP_PORT` | FTP server port | `21` |
-| `FTP_USERNAME` | FTP authentication username | `scanner` |
-| `FTP_PASSWORD` | FTP authentication password | `scanner123` |
+| `FTP_USERNAME` | FTP authentication username | Must be SET |
+| `FTP_PASSWORD` | FTP authentication password | Must be SET |
 | `FTP_UPLOAD_DIR` | Local directory for uploaded files | `./scans` |
 | `NEXTCLOUD_URL` | Nextcloud instance URL | - |
 | `NEXTCLOUD_USERNAME` | Nextcloud username | - |
@@ -123,7 +123,7 @@ You should see a colorful startup banner:
 📡 FTP Server Configuration:
    ├─ Host: 0.0.0.0
    ├─ Port: 21
-   ├─ Username: scanner
+   ├─ Username: your-username
    └─ Upload Directory: /path/to/scans
 
 ☁️  Nextcloud Integration:
@@ -225,6 +225,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 - [Tesseract OCR](https://github.com/tesseract-ocr/tesseract) - OCR engine
 - [Ollama](https://ollama.ai/) - Local AI model runner
 - [Nextcloud](https://nextcloud.com/) - Self-hosted cloud storage
+- [python-magic](https://github.com/ahupp/python-magic) - File type detection using libmagic
 
 ---
 

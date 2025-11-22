@@ -1,9 +1,12 @@
 import logging
 import os
-
+import magic
 from pyftpdlib.handlers import FTPHandler
 
 logger = logging.getLogger(__name__)
+
+UPLOAD_DIR = Path("/srv/ftp/uploads").resolve()
+MAX_FILE_SIZE = 30 * 1024 * 1024 # 30mo
 
 class ScannerHandler(FTPHandler):
     """
@@ -16,6 +19,25 @@ class ScannerHandler(FTPHandler):
 
     processor = None
     manager = None
+
+    def is_real_pdf(file_path):
+        """Check if PDF file is valid, prevent from nullbytes, etc..."""
+        try:
+            mime = magic.from_file(file_path, mime=True)
+            return mime == 'application/pdf'
+        except Exception as e:
+            logger.error(f"Error checking file type: {e}")
+            return False
+
+    def is_safe_path(path: str) -> bool:
+        """
+        Check if path is safe into UPLOAD_DIR.
+        """
+        try:
+            real = Path(path).resolve()
+            return UPLOAD_DIR == real.parent or UPLOAD_DIR in real.parents
+        except Exception:
+            return False
 
     def on_file_received(self, file_path):
         """
@@ -30,8 +52,25 @@ class ScannerHandler(FTPHandler):
         """
         logger.info(f"File received: {file_path}")
 
-        if not file_path.lower().endswith('.pdf'):
-            logger.warning(f"Skipping non-PDF file: {file_path}")
+        if not file_path.lower().endswith('.pdf') or not is_real_pdf(file_path):
+            logger.warning("Skipping non-PDF file: %s", os.path.basename(file_path))
+            return
+
+        if not is_safe_path(file_path):
+            logger.error("Rejected unsafe path: %s", file_path)
+            return
+
+        try:
+            file_size = os.path.getsize(file_path)
+        except Exception as e:
+            logger.error("Cannot determine file size: %s", e)
+            return
+
+        if file_size > MAX_FILE_SIZE:
+            logger.warning(
+                "File too large (%d bytes). Max allowed is %d. File: %s",
+                file_size, MAX_FILE_SIZE, os.path.basename(file_path)
+            )
             return
 
         if self.manager:
