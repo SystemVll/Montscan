@@ -8,6 +8,7 @@ from colorama import Fore, Style, init
 
 from services.Agent import Agent
 from services.ScannerHandler import ScannerHandler
+from services.ProcessingManager import ProcessingManager
 
 # Initialize colorama for Windows compatibility
 init(autoreset=True)
@@ -34,11 +35,13 @@ def setup_ftp_server():
     """
     ftp_host = os.getenv('FTP_HOST', '0.0.0.0')  # Default host is 0.0.0.0
     ftp_port = int(os.getenv('FTP_PORT', '21'))  # Default port is 21
-    ftp_username = os.getenv('FTP_USERNAME', 'scanner')  # Default username
-    ftp_password = os.getenv('FTP_PASSWORD', 'scanner123')  # Default password
+    ftp_username = os.getenv('FTP_USERNAME')
+    ftp_password = os.getenv('FTP_PASSWORD')
     ftp_upload_dir = os.getenv('FTP_UPLOAD_DIR', './scans')  # Default upload directory
 
-    upload_path = Path(ftp_upload_dir).resolve()
+    if not ftp_username or not ftp_password:
+        raise ValueError(f"{Fore.RED}❗ FTP_USERNAME and FTP_PASSWORD must be set!{Style.RESET_ALL}")
+    
     upload_path.mkdir(parents=True, exist_ok=True)
     logger.info(f"FTP upload directory: {upload_path}")
 
@@ -47,7 +50,7 @@ def setup_ftp_server():
         ftp_username,
         ftp_password,
         str(upload_path),
-        perm='elradfmw'
+        perm='elw'  # list, read, write only
     )
 
     handler = ScannerHandler

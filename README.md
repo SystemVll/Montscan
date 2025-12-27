@@ -76,15 +76,15 @@
 |----------|-------------|---------|
 | `FTP_HOST` | FTP server host address | `0.0.0.0` |
 | `FTP_PORT` | FTP server port | `21` |
-| `FTP_USERNAME` | FTP authentication username | `scanner` |
-| `FTP_PASSWORD` | FTP authentication password | `scanner123` |
+| `FTP_USERNAME` | FTP authentication username | Must be SET |
+| `FTP_PASSWORD` | FTP authentication password | Must be SET |
 | `FTP_UPLOAD_DIR` | Local directory for uploaded files | `./scans` |
 | `NEXTCLOUD_URL` | Nextcloud instance URL | - |
 | `NEXTCLOUD_USERNAME` | Nextcloud username | - |
 | `NEXTCLOUD_PASSWORD` | Nextcloud password | - |
 | `NEXTCLOUD_UPLOAD_PATH` | Upload path in Nextcloud | `/Documents/Scanned` |
 | `OLLAMA_HOST` | Ollama service URL | `http://localhost:11434` |
-| `OLLAMA_MODEL` | Ollama vision model to use | `llava` |
+| `OLLAMA_MODEL` | Ollama vision model to use | `ministral-3:3b-instruct-2512-q4_K_M` |
 
 ---
 
@@ -111,7 +111,7 @@ You should see a colorful startup banner:
 📡 FTP Server Configuration:
    ├─ Host: 0.0.0.0
    ├─ Port: 21
-   ├─ Username: scanner
+   ├─ Username: your-username
    └─ Upload Directory: /path/to/scans
 
 ☁️  Nextcloud Integration:
@@ -184,7 +184,7 @@ docker run -d \
 
 #### AI Naming Fails
 - **Solution**: Verify Ollama is running and a vision model is downloaded
-- Test with: `ollama list` and ensure you have a vision-capable model (e.g., `llava`, `llama3.2-vision`)
+- Test with: `ollama list` and ensure you have a vision-capable model (e.g., `ministral-3:3b-instruct-2512-q4_K_M`, `llama3.2-vision`)
 
 #### Nextcloud Upload Fails
 - **Solution**: Check Nextcloud credentials and URL
