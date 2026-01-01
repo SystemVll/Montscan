@@ -1,0 +1,52 @@
+services:
+  montscan:
+    build: .
+    container_name: montscan
+    restart: unless-stopped
+    ports:
+      - "21:21"
+      - "21000-21010:21000-21010"
+    environment:
+      - FTP_HOST=0.0.0.0
+      - FTP_PORT=21
+      - FTP_USERNAME=scanner
+      - FTP_PASSWORD=${FTP_PASSWORD:-scanner123}
+      - FTP_UPLOAD_DIR=/app/scans
+      - NEXTCLOUD_URL=${NEXTCLOUD_URL}
+      - NEXTCLOUD_USERNAME=${NEXTCLOUD_USERNAME}
+      - NEXTCLOUD_PASSWORD=${NEXTCLOUD_PASSWORD}
+      - NEXTCLOUD_UPLOAD_PATH=${NEXTCLOUD_UPLOAD_PATH:-/Documents/Scanned}
+      - OLLAMA_HOST=${OLLAMA_HOST:-http://host.docker.internal:11434}
+      - OLLAMA_MODEL=${OLLAMA_MODEL:-llava}
+    volumes:
+      - ./scans:/app/scans
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    networks:
+      - montscan-network
+
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama
+    restart: unless-stopped
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama-data:/root/.ollama
+    networks:
+      - montscan-network
+    # Uncomment if you have NVIDIA GPU
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: 1
+    #           capabilities: [gpu]
+
+volumes:
+  ollama-data:
+
+networks:
+  montscan-network:
+    driver: bridge
